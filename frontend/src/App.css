@@ -1,0 +1,1463 @@
+/* ─────────────────────────────────────────────────────────────
+   App Shell
+───────────────────────────────────────────────────────────── */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100vh;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Header
+───────────────────────────────────────────────────────────── */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.75rem;
+  height: 56px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+  background: rgba(7, 12, 20, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.app-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.brand-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--r-md);
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+}
+
+.brand-name {
+  font-size: 0.975rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+.brand-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Body — two-column grid
+───────────────────────────────────────────────────────────── */
+.app-body {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 860px) {
+  .app-body {
+    grid-template-columns: 1fr;
+    overflow: visible;
+    /* leave room for bottom nav */
+    padding-bottom: 64px;
+  }
+
+  /* Hide panels not active on mobile */
+  .panel-left[data-mobile-active="false"],
+  .panel-right[data-mobile-active="false"] {
+    display: none;
+  }
+
+  .panel-left, .panel-right {
+    border-right: none;
+    padding: 1rem;
+  }
+
+  /* Output card fills screen height on mobile */
+  .panel-right {
+    min-height: calc(100dvh - 56px - 64px);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Panels
+───────────────────────────────────────────────────────────── */
+.panel-left {
+  border-right: 1px solid var(--border);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+}
+
+.panel-right {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Mobile bottom nav
+───────────────────────────────────────────────────────────── */
+.mobile-nav {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: rgba(7, 12, 20, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    z-index: 30;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  .mobile-nav button {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.15s;
+    position: relative;
+    padding: 0;
+    /* min 44px touch target */
+    min-height: 44px;
+  }
+
+  .mobile-nav button.active {
+    color: var(--primary-light);
+  }
+
+  .mobile-nav-badge {
+    position: absolute;
+    top: 8px;
+    right: calc(50% - 14px);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: 1.5px solid var(--bg-page);
+  }
+
+  /* Responsive output card header — wrap controls */
+  .output-card-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.6rem 0.875rem;
+  }
+
+  .output-header-controls {
+    gap: 0.35rem;
+  }
+
+  /* Recorder more compact */
+  .recorder {
+    padding: 1.25rem 1rem 1rem;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Input mode toggle (Voice / Text)
+───────────────────────────────────────────────────────────── */
+.input-mode-toggle {
+  display: flex;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+  padding: 3px;
+  gap: 2px;
+  align-self: center;
+  width: 100%;
+}
+
+.input-mode-toggle button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0;
+  border-radius: var(--r-full);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.input-mode-toggle button:hover:not(.active) {
+  color: var(--text-secondary);
+}
+
+.input-mode-toggle button.active {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Text input card
+───────────────────────────────────────────────────────────── */
+.text-input-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.text-input-area {
+  width: 100%;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  padding: 0.75rem 0.9rem;
+  resize: none;
+  outline: none;
+  transition: border-color 0.15s;
+  field-sizing: content;
+  min-height: 96px;
+}
+
+.text-input-area::placeholder {
+  color: var(--text-muted);
+}
+
+.text-input-area:focus {
+  border-color: var(--primary);
+}
+
+.text-input-area:disabled {
+  opacity: 0.5;
+}
+
+.text-input-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.text-input-hint {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.text-submit-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1rem;
+  border-radius: var(--r-full);
+  border: none;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+  white-space: nowrap;
+}
+
+.text-submit-btn:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.text-submit-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Recorder card
+───────────────────────────────────────────────────────────── */
+.recorder {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 1.75rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Animated ring around the button */
+.record-ring {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.record-ring::before {
+  content: '';
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-md);
+  transition: border-color 0.25s, box-shadow 0.25s;
+  pointer-events: none;
+}
+
+.record-ring.is-recording::before {
+  border-color: var(--recording);
+  box-shadow: var(--glow-red);
+  animation: ring-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes ring-pulse {
+  0%, 100% { transform: scale(1);    opacity: 1; }
+  50%       { transform: scale(1.06); opacity: 0.55; }
+}
+
+.record-btn {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  transition: background 0.15s, color 0.15s, transform 0.12s, box-shadow 0.15s;
+  outline: none;
+}
+
+.record-btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+}
+
+.record-btn:hover:not(:disabled) {
+  background: var(--bg-hover);
+  color: var(--primary-light);
+  transform: scale(1.05);
+  box-shadow: var(--glow-blue);
+}
+
+.record-btn.is-recording {
+  background: rgba(239, 68, 68, 0.12);
+  color: var(--recording);
+}
+
+.record-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.record-btn svg {
+  width: 26px;
+  height: 26px;
+}
+
+/* Waveform */
+.waveform-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.waveform {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: 40px;
+  border-radius: var(--r-sm);
+}
+
+/* Status row */
+.recorder-status {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  min-height: 18px;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--text-muted);
+  transition: background 0.25s;
+}
+
+.status-dot.is-connected  { background: var(--success); }
+.status-dot.is-recording  { background: var(--recording); animation: dot-blink 0.9s ease-in-out infinite; }
+.status-dot.is-connecting { background: var(--warning); }
+.status-dot.is-closed     { background: var(--error); }
+
+@keyframes dot-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.25; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Status / error messages
+───────────────────────────────────────────────────────────── */
+.status-msg {
+  font-size: 0.82rem;
+  color: var(--primary-light);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--primary-dim);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--r-md);
+}
+
+.status-msg.error {
+  color: var(--error);
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+/* Spinner */
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(96, 165, 250, 0.25);
+  border-top-color: var(--primary-light);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Transcript card
+───────────────────────────────────────────────────────────── */
+.transcript {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.transcript-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--text-muted);
+}
+
+.transcript-text {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  line-height: 1.65;
+}
+
+.gloss-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.1rem;
+}
+
+.gloss-tag {
+  background: var(--primary-dim);
+  color: #93c5fd;
+  border: 1px solid rgba(59, 130, 246, 0.22);
+  padding: 0.18rem 0.55rem;
+  border-radius: var(--r-full);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  transition: background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s;
+  cursor: default;
+  user-select: none;
+}
+
+.gloss-tag.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.22);
+  transform: scale(1.1);
+}
+
+.gloss-tag.fingerspell {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  font-style: italic;
+}
+
+.fs-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.18);
+  border-radius: var(--r-sm);
+  padding: 0.4rem 0.6rem;
+  font-size: 0.72rem;
+  color: #fbbf24;
+  line-height: 1.5;
+}
+
+.fs-notice svg {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  opacity: 0.8;
+}
+
+.fs-notice strong {
+  font-weight: 600;
+  color: #fde68a;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Error boundary
+───────────────────────────────────────────────────────────── */
+.error-boundary {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+}
+
+.error-boundary svg {
+  width: 36px;
+  height: 36px;
+  color: var(--error);
+  opacity: 0.7;
+}
+
+.error-boundary-msg {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  max-width: 280px;
+  line-height: 1.6;
+}
+
+.error-boundary-retry {
+  margin-top: 0.25rem;
+  padding: 0.35rem 1rem;
+  border-radius: var(--r-full);
+  border: 1px solid var(--border-md);
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.error-boundary-retry:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+/* Avatar lazy-load placeholder */
+.avatar-loading {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  aspect-ratio: 16 / 9;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Output card (right panel)
+───────────────────────────────────────────────────────────── */
+.output-card {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  min-height: 0;
+}
+
+.output-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  gap: 1rem;
+}
+
+.output-card-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Output header controls row
+───────────────────────────────────────────────────────────── */
+.output-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* Replay button */
+.replay-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--r-full);
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.replay-btn:hover {
+  background: var(--bg-hover);
+  color: var(--primary-light);
+}
+
+.replay-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* Speed toggle — same style as mode toggle */
+.speed-toggle {
+  display: flex;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+  padding: 3px;
+  gap: 2px;
+}
+
+.speed-toggle button {
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--r-full);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.speed-toggle button:hover:not(.active) {
+  color: var(--text-secondary);
+}
+
+.speed-toggle button.active {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Mode toggle — segmented control
+───────────────────────────────────────────────────────────── */
+.mode-toggle {
+  display: flex;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+  padding: 3px;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.mode-toggle button {
+  padding: 0.25rem 0.875rem;
+  border-radius: var(--r-full);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.mode-toggle button:hover:not(.active) {
+  color: var(--text-secondary);
+}
+
+.mode-toggle button.active {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Output card body
+───────────────────────────────────────────────────────────── */
+.output-card-body {
+  flex: 1;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Empty state */
+.output-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+}
+
+.output-empty svg {
+  width: 40px;
+  height: 40px;
+  opacity: 0.3;
+}
+
+.output-empty p {
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.output-empty p span {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  opacity: 0.7;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   History panel
+───────────────────────────────────────────────────────────── */
+.history-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.history-badge {
+  font-size: 0.68rem;
+  font-weight: 600;
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  border-radius: var(--r-full);
+  padding: 0.1rem 0.45rem;
+  border: 1px solid var(--border);
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.history-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.65rem 1rem;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s;
+  border-bottom: 1px solid var(--border);
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+.history-item:hover {
+  background: var(--bg-elevated);
+}
+
+.history-transcript {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.history-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.history-count {
+  font-size: 0.68rem;
+  color: var(--primary-light);
+  opacity: 0.8;
+}
+
+.history-time {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Avatar
+───────────────────────────────────────────────────────────── */
+.avatar-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  flex: 1;
+}
+
+.avatar-canvas-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.avatar-canvas {
+  width: 100%;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: #060c18;
+  aspect-ratio: 16 / 9;
+  flex-shrink: 0;
+}
+
+/* Fingerspell letter overlay */
+.fs-overlay {
+  position: absolute;
+  top: 50%;
+  right: 8%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: rgba(15, 25, 50, 0.75);
+  border: 1.5px solid rgba(59, 130, 246, 0.45);
+  border-radius: var(--r-lg);
+  padding: 0.5rem 0.75rem;
+  backdrop-filter: blur(8px);
+  animation: fs-pop 0.12s ease-out;
+  pointer-events: none;
+}
+
+@keyframes fs-pop {
+  from { transform: translateY(-50%) scale(0.75); opacity: 0; }
+  to   { transform: translateY(-50%) scale(1);    opacity: 1; }
+}
+
+.fs-letter {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #93c5fd;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.fs-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Video player
+───────────────────────────────────────────────────────────── */
+.video-player {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  flex: 1;
+}
+
+.sign-video {
+  width: 100%;
+  border-radius: var(--r-lg);
+  background: var(--bg-elevated);
+  aspect-ratio: 16 / 9;
+  display: block;
+}
+
+/* Shared status line below canvas/video */
+.video-info {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  text-align: center;
+  letter-spacing: 0.02em;
+  min-height: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.video-info .playing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  animation: dot-blink 1s ease-in-out infinite;
+}
+
+.video-info .done-check {
+  color: var(--success);
+}
+
+.no-video {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.no-video code {
+  background: var(--bg-elevated);
+  padding: 0.1rem 0.35rem;
+  border-radius: var(--r-xs);
+  color: var(--text-secondary);
+  font-size: 0.85em;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Sign Input (Direction 2: webcam → recognition)
+───────────────────────────────────────────────────────────── */
+.sign-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sign-camera-wrap {
+  position: relative;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: #000;
+  aspect-ratio: 4/3;
+  max-height: 220px;
+}
+
+.sign-video-feed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sign-canvas-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sign-camera-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: rgba(0,0,0,0.6);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.sign-rec-badge {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background: rgba(239,68,68,0.85);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--r-full);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.sign-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sign-btn-record {
+  width: 100%;
+  padding: 0.7rem;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-md);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background 0.15s, transform 0.1s;
+}
+.sign-btn-record:active { transform: scale(0.97); }
+.sign-btn-record:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.sign-btn-stop {
+  width: 100%;
+  padding: 0.7rem;
+  background: var(--recording);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-md);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  animation: pulse-btn 1s infinite;
+}
+
+@keyframes pulse-btn {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
+  50%       { box-shadow: 0 0 0 6px rgba(239,68,68,0); }
+}
+
+.sign-candidates {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.sign-candidate-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 0.75rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  gap: 0.75rem;
+}
+.sign-candidate-btn:hover { border-color: var(--primary); background: var(--bg-hover); }
+
+.sign-candidate-gloss {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.sign-candidate-conf {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  min-width: 60px;
+}
+
+.sign-conf-bar {
+  display: inline-block;
+  height: 4px;
+  max-width: 40px;
+  background: var(--primary);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.sign-retry-btn {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem;
+  text-decoration: underline;
+  align-self: flex-start;
+}
+
+.sign-confirmed {
+  font-size: 0.85rem;
+  color: var(--success);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.sign-hint {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Record Page (/record)
+───────────────────────────────────────────────────────────── */
+.record-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-page);
+  color: var(--text-primary);
+}
+
+.record-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.record-back {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+.record-back:hover { color: var(--text-primary); }
+
+.record-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.record-subtitle {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.record-body {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 700px) {
+  .record-body { grid-template-columns: 1fr; }
+}
+
+.record-camera-wrap {
+  position: relative;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  background: #000;
+  aspect-ratio: 4/3;
+}
+
+.record-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.record-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.record-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: rgba(0,0,0,0.7);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.record-mp-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 0.5rem;
+  color: var(--error);
+  padding: 2rem;
+  text-align: center;
+}
+
+.record-indicator {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--r-full);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.rec-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--recording);
+  border-radius: 50%;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+
+.rec-quality { font-weight: 400; }
+
+.record-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.record-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.record-input {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-md);
+  border-radius: var(--r-md);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.record-input:focus { border-color: var(--primary); }
+.record-input::placeholder { color: var(--text-muted); font-weight: 400; }
+
+.record-suggestions { display: flex; flex-direction: column; gap: 0.4rem; }
+
+.suggestion-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.suggestion-chip {
+  padding: 0.2rem 0.6rem;
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.25);
+  border-radius: var(--r-full);
+  color: #fca5a5;
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.suggestion-chip:hover { background: rgba(239,68,68,0.2); }
+
+.record-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.record-btn-start {
+  flex: 1;
+  padding: 0.7rem;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background 0.15s;
+}
+.record-btn-start:disabled { opacity: 0.45; cursor: not-allowed; }
+.record-btn-start:not(:disabled):hover { background: var(--primary-light); }
+
+.record-btn-stop {
+  flex: 1;
+  padding: 0.7rem;
+  background: var(--recording);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  animation: pulse-btn 1s infinite;
+}
+
+.record-btn-submit {
+  flex: 1;
+  padding: 0.7rem;
+  background: var(--success);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: opacity 0.15s;
+}
+.record-btn-submit:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.record-frame-info {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.record-success {
+  background: rgba(34,197,94,0.1);
+  border: 1px solid rgba(34,197,94,0.25);
+  border-radius: var(--r-md);
+  padding: 0.6rem 0.8rem;
+  font-size: 0.82rem;
+  color: #86efac;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.record-instructions {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 0.8rem 1rem;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.record-instructions ol {
+  margin: 0.4rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.record-instructions li { margin-bottom: 0.2rem; }

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#131d2e"/>
+      <stop offset="100%" stop-color="#070c14"/>
+    </linearGradient>
+    <linearGradient id="hand" x1="160" y1="106" x2="352" y2="406" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="108" fill="url(#bg)"/>
+  <!-- Palm -->
+  <rect x="198" y="240" width="116" height="138" rx="22" fill="url(#hand)"/>
+  <!-- Thumb -->
+  <rect x="144" y="266" width="64" height="52" rx="22" fill="url(#hand)"/>
+  <!-- Index finger -->
+  <rect x="198" y="138" width="42" height="122" rx="21" fill="url(#hand)"/>
+  <!-- Pinky finger -->
+  <rect x="270" y="148" width="42" height="112" rx="21" fill="url(#hand)"/>
+  <!-- Wave lines (sound) -->
+  <path d="M368 202 Q384 221 368 240" stroke="#60a5fa" stroke-width="9.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+  <path d="M384 180 Q410 221 384 262" stroke="#60a5fa" stroke-width="9.5" stroke-linecap="round" fill="none" opacity="0.45"/>
+  <path d="M400 158 Q436 221 400 284" stroke="#60a5fa" stroke-width="9.5" stroke-linecap="round" fill="none" opacity="0.25"/>
+</svg>
