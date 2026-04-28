@@ -1,0 +1,359 @@
+{
+  "gloss": "STUDY",
+  "source_video": "D:\\Projects\\speech-to-sign\\frontend\\public\\videos\\STUDY.mp4",
+  "fps": 25.0,
+  "frame_count": 50,
+  "valid_pose_frames": 0,
+  "frames": [
+    {
+      "frame_idx": 0,
+      "timestamp_ms": 0,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 1,
+      "timestamp_ms": 40,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 2,
+      "timestamp_ms": 80,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 3,
+      "timestamp_ms": 120,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 4,
+      "timestamp_ms": 160,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 5,
+      "timestamp_ms": 200,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 6,
+      "timestamp_ms": 240,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 7,
+      "timestamp_ms": 280,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 8,
+      "timestamp_ms": 320,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 9,
+      "timestamp_ms": 360,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 10,
+      "timestamp_ms": 400,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 11,
+      "timestamp_ms": 440,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 12,
+      "timestamp_ms": 480,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 13,
+      "timestamp_ms": 520,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 14,
+      "timestamp_ms": 560,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 15,
+      "timestamp_ms": 600,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 16,
+      "timestamp_ms": 640,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 17,
+      "timestamp_ms": 680,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 18,
+      "timestamp_ms": 720,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 19,
+      "timestamp_ms": 760,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 20,
+      "timestamp_ms": 800,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 21,
+      "timestamp_ms": 840,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 22,
+      "timestamp_ms": 880,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 23,
+      "timestamp_ms": 920,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 24,
+      "timestamp_ms": 960,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 25,
+      "timestamp_ms": 1000,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 26,
+      "timestamp_ms": 1040,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 27,
+      "timestamp_ms": 1080,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 28,
+      "timestamp_ms": 1120,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 29,
+      "timestamp_ms": 1160,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 30,
+      "timestamp_ms": 1200,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 31,
+      "timestamp_ms": 1240,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 32,
+      "timestamp_ms": 1280,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 33,
+      "timestamp_ms": 1320,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 34,
+      "timestamp_ms": 1360,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 35,
+      "timestamp_ms": 1400,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 36,
+      "timestamp_ms": 1440,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 37,
+      "timestamp_ms": 1480,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 38,
+      "timestamp_ms": 1520,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 39,
+      "timestamp_ms": 1560,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 40,
+      "timestamp_ms": 1600,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 41,
+      "timestamp_ms": 1640,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 42,
+      "timestamp_ms": 1680,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 43,
+      "timestamp_ms": 1720,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 44,
+      "timestamp_ms": 1760,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 45,
+      "timestamp_ms": 1800,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 46,
+      "timestamp_ms": 1840,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 47,
+      "timestamp_ms": 1880,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 48,
+      "timestamp_ms": 1920,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    },
+    {
+      "frame_idx": 49,
+      "timestamp_ms": 1960,
+      "pose": null,
+      "right_hand": null,
+      "left_hand": null
+    }
+  ]
+}
